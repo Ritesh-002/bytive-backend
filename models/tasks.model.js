@@ -15,7 +15,7 @@ const tasksSchema = new Schema(
             minlength: [20, 'Description must be atleast 20 characters long'],
         },
         status: {
-            values: ['pending', 'in-progress', 'success'],
+            type: String,
             required: true,
             default: 'pending'
         },
