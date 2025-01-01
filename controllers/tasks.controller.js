@@ -18,6 +18,29 @@ export const getAllTasks = asyncHandler(async (_req, res, next) => {
 });
 
 /**
+ * @GET_TASK_BY_ID
+ * @ROUTE @GET {{URL}}/api/v1/tasks/:id
+ * @ACCESS Public
+ */
+export const getTaskById = asyncHandler(async (req, res, next) => {
+    // Extracting id from the request parameters
+    const { id } = req.params;
+
+    // Finding the task via the task ID
+    const task = await Task.findById(id);
+
+    if (!task) {
+        return next(new AppError('Task with given id does not exist.', 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        message: 'Task',
+        task,
+    });
+});
+
+/**
  * @CREATE_TASK
  * @ROUTE @POST {{URL}}/api/v1/tasks
  * @ACCESS Public
@@ -79,5 +102,33 @@ export const updateTaskById = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'Task updated successfully',
+    });
+});
+
+/**
+ * @DELETE_TASK_BY_ID
+ * @ROUTE @DELETE {{URL}}/api/v1/tasks/:id
+ * @ACCESS Public
+ */
+export const deleteTaskById = asyncHandler(async (req, res, next) => {
+    // Extracting id from the request parameters
+    const { id } = req.params;
+
+    // Finding the task via the task ID
+    const task = await Task.findById(id);
+
+    // If task not find send the message as stated below
+    if (!task) {
+        return next(new AppError('Task with given id does not exist.', 404));
+    }
+
+    // Remove task
+    await task.deleteOne();
+
+    // Send the message as response
+    res.status(200).json({
+        success: true,
+        message: 'Task deleted successfully',
+        data: task
     });
 });
