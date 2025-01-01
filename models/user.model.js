@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const userSchema = new Schema(
     {
-        name: {
+        fullName: {
             type: String,
             required: [true, 'Name is required'],
             minlength: [5, 'Name must be at least 5 characters'],
@@ -52,7 +52,7 @@ userSchema.methods = {
     // Will generate a JWT token with user id as payload
     generateJWTToken: async function () {
         return await jwt.sign(
-            { id: this._id, role: this.role, subscription: this.subscription },
+            { id: this._id, },
             process.env.JWT_SECRET,
             {
                 expiresIn: process.env.JWT_EXPIRY,
