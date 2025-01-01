@@ -1,5 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.middleware.js";
 import Task from "../models/tasks.model.js";
+import AppError from "../utils/appError.js";
 
 /**
  * @ALL_TASKS
