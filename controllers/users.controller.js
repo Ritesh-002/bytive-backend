@@ -105,3 +105,18 @@ export const loginUser = asyncHandler(async (req, res, next) => {
         user,
     });
 });
+
+export const logoutUser = asyncHandler(async (_req, res, _next) => {
+    // Setting the cookie value to null
+    res.cookie('token', null, {
+        secure: process.env.NODE_ENV === 'production' ? true : false,
+        maxAge: 0,
+        httpOnly: true,
+    });
+
+    // Sending the response
+    res.status(200).json({
+        success: true,
+        message: 'User logged out successfully',
+    });
+});
