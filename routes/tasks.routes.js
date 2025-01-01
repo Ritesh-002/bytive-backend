@@ -6,9 +6,9 @@ import { isLoggedIn } from "../middlewares/auth.middleware.js";
 const tasksRouter = Router();
 
 tasksRouter.get('/', isLoggedIn, getAllTasks)
-tasksRouter.get('/:id', getTaskById)
-tasksRouter.post('/', createTask)
-tasksRouter.put('/:id', updateTaskById)
-tasksRouter.delete('/:id', deleteTaskById)
+tasksRouter.get('/:id', isLoggedIn, getTaskById)
+tasksRouter.post('/', isLoggedIn, createTask)
+tasksRouter.put('/:id', isLoggedIn, updateTaskById)
+tasksRouter.delete('/:id', isLoggedIn, deleteTaskById)
 
 export default tasksRouter;
